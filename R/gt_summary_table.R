@@ -219,7 +219,10 @@ plot_data <- function(col, col_name, ...) {
     # auto binwidth per Rob Hyndman
     # https://stats.stackexchange.com/questions/798/calculating-optimal-number-of-bins-in-a-histogram
     bw <- 2 * IQR(col, na.rm = TRUE) / length(col)^(1 / 3)
-
+    if (bw == 0) {
+    	bw <- 1
+    }
+    
     plot_out <- ggplot(df_in, aes(x = x)) +
       geom_histogram(color = "white", fill = "#f8bb87", binwidth = bw) +
       scale_x_continuous(
